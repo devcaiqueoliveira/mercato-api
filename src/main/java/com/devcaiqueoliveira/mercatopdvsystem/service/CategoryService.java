@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +20,7 @@ public class CategoryService {
 
     public Category findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada com ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Categoria com ID: " + id + " não encontrada."));
     }
 
     public List<Category> listAll() {
