@@ -1,6 +1,5 @@
 package com.devcaiqueoliveira.mercatopdvsystem.exception;
 
-import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
