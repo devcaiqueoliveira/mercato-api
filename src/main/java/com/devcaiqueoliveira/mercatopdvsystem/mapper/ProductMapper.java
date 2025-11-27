@@ -5,7 +5,6 @@ import com.devcaiqueoliveira.mercatopdvsystem.controller.dto.ProductResponse;
 import com.devcaiqueoliveira.mercatopdvsystem.entity.Product;
 import lombok.experimental.UtilityClass;
 
-@UtilityClass
 public final class ProductMapper {
 
     public static Product toEntity(ProductRequest request) {

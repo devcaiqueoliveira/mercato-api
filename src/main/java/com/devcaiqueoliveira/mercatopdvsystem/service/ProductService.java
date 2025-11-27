@@ -2,15 +2,14 @@ package com.devcaiqueoliveira.mercatopdvsystem.service;
 
 import com.devcaiqueoliveira.mercatopdvsystem.entity.Category;
 import com.devcaiqueoliveira.mercatopdvsystem.entity.Product;
-import com.devcaiqueoliveira.mercatopdvsystem.exception.BusinessRuleException;
 import com.devcaiqueoliveira.mercatopdvsystem.exception.EntityNotFoundException;
 import com.devcaiqueoliveira.mercatopdvsystem.repository.ProductRepository;
+import com.devcaiqueoliveira.mercatopdvsystem.service.validator.ProductValidatorStrategy;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,6 +18,7 @@ public class ProductService {
 
     private final ProductRepository repository;
     private final CategoryService categoryService;
+    private final List<ProductValidatorStrategy> validators;
 
     public Product findById(Long id) {
         return repository.findById(id)
@@ -32,7 +32,7 @@ public class ProductService {
     @Transactional
     public Product create(Product product, Long categoryId) {
 
-        validateUniqueBarCode(product.getBarCode());
+        validators.forEach(v -> v.validationCreate(product));
 
         product.setActive(true);
 
@@ -46,7 +46,7 @@ public class ProductService {
     public Product update(Long id, Product newData, Long categoryId) {
         Product existingProduct = findById(id);
 
-        validateUniqueBarCodeForUpdate(newData.getBarCode(), id);
+        validators.forEach(v -> v.validationUpdate(newData, id));
 
         existingProduct.updateFrom(newData);
 
@@ -64,17 +64,5 @@ public class ProductService {
             throw new EntityNotFoundException("Produto não encontrado no sistema.");
         }
         repository.deleteById(id);
-    }
-
-    private void validateUniqueBarCode(String barCode) {
-        if (repository.existsByBarCode(barCode)) {
-            throw new BusinessRuleException("Já existe um produto cadastrado com este código de barras");
-        }
-    }
-
-    private void validateUniqueBarCodeForUpdate(String barCode, Long id) {
-        if (repository.existsByBarCodeAndIdNot(barCode, id)) {
-            throw new BusinessRuleException("O código de barras declarado já pertence a outro produto.");
-        }
     }
 }
