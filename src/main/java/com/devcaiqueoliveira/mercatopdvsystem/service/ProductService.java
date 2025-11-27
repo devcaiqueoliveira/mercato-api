@@ -44,7 +44,7 @@ public class ProductService {
 
     @Transactional
     public Product update(Long id, Product newData, Long categoryId) {
-        Product existingProduct = findById(newData.getId());
+        Product existingProduct = findById(id);
 
         validateUniqueBarCodeForUpdate(newData.getBarCode(), id);
 

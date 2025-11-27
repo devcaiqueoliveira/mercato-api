@@ -10,7 +10,7 @@ public record ProductResponse(
         String barCode,
         String sku,
         BigDecimal salePrice,
-        BigDecimal costPrice,
+        BigDecimal stockQuantity,
         String unitOfMeasure,
         Boolean active,
         CategoryResponse category,

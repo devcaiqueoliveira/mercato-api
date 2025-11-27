@@ -46,4 +46,13 @@ public class ProductController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(ProductMapper.toProductResponse(savedProduct));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @RequestBody @Valid ProductRequest request) {
+        Product newData = ProductMapper.toEntity(request);
+
+        Product updatedEntity = service.update(id, newData,  request.categoryId());
+
+        return ResponseEntity.ok(ProductMapper.toProductResponse(updatedEntity));
+    }
 }
