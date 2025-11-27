@@ -28,17 +28,9 @@ public class CategoryService {
 
     @Transactional
     public Category save(Category category) {
-
-        Category existingCategory = repository.findByName(category.getName());
-
-        if (existingCategory != null && existingCategory.getId().equals(category.getId())) {
-            throw new BusinessRuleException("Já existe uma categoria com este nome.");
-        }
-
-        if (category.getId() == null) {
-            category.setActive(true);
-        }
-
+        validateUniqueName(category.getName());
+        category.setId(null);
+        category.setActive(true);
         return repository.save(category);
     }
 
@@ -48,6 +40,12 @@ public class CategoryService {
             throw new EntityNotFoundException("Categoria não encontrada para ser removida");
         }
         repository.deleteById(id);
+    }
+
+    private void validateUniqueName(String name) {
+        if (repository.existsByName(name)) {
+            throw new BusinessRuleException("Já existe uma categoria com este nome.");
+        }
     }
 
 }
