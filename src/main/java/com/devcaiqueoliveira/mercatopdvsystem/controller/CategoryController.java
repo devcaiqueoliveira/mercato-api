@@ -1,5 +1,6 @@
 package com.devcaiqueoliveira.mercatopdvsystem.controller;
 
+import com.devcaiqueoliveira.mercatopdvsystem.controller.dto.CategoryRequest;
 import com.devcaiqueoliveira.mercatopdvsystem.controller.dto.CategoryResponse;
 import com.devcaiqueoliveira.mercatopdvsystem.controller.mapper.CategoryMapper;
 import com.devcaiqueoliveira.mercatopdvsystem.entity.Category;
@@ -36,8 +37,10 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(category));
+    public ResponseEntity<CategoryResponse> createCategory(@RequestBody CategoryRequest request) {
+        Category category = CategoryMapper.toCategory(request);
+        Category savedCategory = categoryService.save(category);
+        return ResponseEntity.status(HttpStatus.CREATED).body(CategoryMapper.toCategoryResponse(savedCategory));
     }
 
     @DeleteMapping("/{id}")
