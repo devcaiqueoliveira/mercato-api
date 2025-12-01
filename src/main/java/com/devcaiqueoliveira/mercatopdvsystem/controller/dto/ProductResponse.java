@@ -14,6 +14,7 @@ public record ProductResponse(
         String unitOfMeasure,
         Boolean active,
         CategoryResponse category,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
 ) {
 }

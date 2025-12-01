@@ -37,7 +37,8 @@ public final class ProductMapper {
                 product.getUnitOfMeasure(),
                 product.getActive(),
                 product.getCategory() != null ? CategoryMapper.toCategoryResponse(product.getCategory()) : null,
-                product.getCreatedAt()
+                product.getCreatedAt(),
+                product.getUpdatedAt()
         );
     }
 }
