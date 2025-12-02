@@ -22,6 +22,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService service;
+    private final ProductMapper mapper;
 
     @Operation(summary = "Listar todos os produtos cadastrados no sistema.")
     @GetMapping
@@ -29,7 +30,7 @@ public class ProductController {
         List<Product> products = service.listAll();
 
         List<ProductResponse> responses = products.stream()
-                .map(ProductMapper::toProductResponse)
+                .map(mapper::toProductResponse)
                 .toList();
 
         return ResponseEntity.ok(responses);
@@ -39,26 +40,26 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
         Product product = service.findById(id);
-        return ResponseEntity.ok(ProductMapper.toProductResponse(product));
+        return ResponseEntity.ok(mapper.toProductResponse(product));
     }
 
     @Operation(summary = "Cria um produto novo no sistema.")
     @PostMapping
     public ResponseEntity<ProductResponse> createProduct(@RequestBody @Valid ProductRequest request) {
-        Product product = ProductMapper.toEntity(request);
+        Product product = mapper.toProduct(request);
 
         Product savedProduct = service.create(product, request.categoryId());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ProductMapper.toProductResponse(savedProduct));
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toProductResponse(savedProduct));
     }
 
     @Operation(summary = "Atualiza um produto existente no sistema.")
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @RequestBody @Valid ProductRequest request) {
-        Product newData = ProductMapper.toEntity(request);
+        Product newData = mapper.toProduct(request);
 
         Product updatedEntity = service.update(id, newData, request.categoryId());
 
-        return ResponseEntity.ok(ProductMapper.toProductResponse(updatedEntity));
+        return ResponseEntity.ok(mapper.toProductResponse(updatedEntity));
     }
 }
