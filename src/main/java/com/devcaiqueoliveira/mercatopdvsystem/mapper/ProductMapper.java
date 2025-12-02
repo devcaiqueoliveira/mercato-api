@@ -3,7 +3,6 @@ package com.devcaiqueoliveira.mercatopdvsystem.mapper;
 import com.devcaiqueoliveira.mercatopdvsystem.controller.dto.ProductRequest;
 import com.devcaiqueoliveira.mercatopdvsystem.controller.dto.ProductResponse;
 import com.devcaiqueoliveira.mercatopdvsystem.entity.Product;
-import lombok.experimental.UtilityClass;
 
 public final class ProductMapper {
 
