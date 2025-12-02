@@ -1,7 +1,7 @@
 package com.devcaiqueoliveira.mercatopdvsystem.controller;
 
-import com.devcaiqueoliveira.mercatopdvsystem.controller.dto.ProductRequest;
-import com.devcaiqueoliveira.mercatopdvsystem.controller.dto.ProductResponse;
+import com.devcaiqueoliveira.mercatopdvsystem.dto.ProductRequest;
+import com.devcaiqueoliveira.mercatopdvsystem.dto.ProductResponse;
 import com.devcaiqueoliveira.mercatopdvsystem.entity.Product;
 import com.devcaiqueoliveira.mercatopdvsystem.mapper.ProductMapper;
 import com.devcaiqueoliveira.mercatopdvsystem.service.ProductService;
@@ -50,7 +50,8 @@ public class ProductController {
 
         Product savedProduct = service.create(product, request.categoryId());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toProductResponse(savedProduct));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(mapper.toProductResponse(savedProduct));
     }
 
     @Operation(summary = "Atualiza um produto existente no sistema.")

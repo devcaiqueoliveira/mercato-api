@@ -1,4 +1,4 @@
-package com.devcaiqueoliveira.mercatopdvsystem.controller.dto;
+package com.devcaiqueoliveira.mercatopdvsystem.dto;
 
 public record CategoryResponse(
         Long id,

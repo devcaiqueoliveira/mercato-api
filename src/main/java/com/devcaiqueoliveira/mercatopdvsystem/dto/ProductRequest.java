@@ -1,4 +1,4 @@
-package com.devcaiqueoliveira.mercatopdvsystem.controller.dto;
+package com.devcaiqueoliveira.mercatopdvsystem.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

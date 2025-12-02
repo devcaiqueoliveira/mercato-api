@@ -1,7 +1,7 @@
 package com.devcaiqueoliveira.mercatopdvsystem.controller;
 
-import com.devcaiqueoliveira.mercatopdvsystem.controller.dto.CategoryRequest;
-import com.devcaiqueoliveira.mercatopdvsystem.controller.dto.CategoryResponse;
+import com.devcaiqueoliveira.mercatopdvsystem.dto.CategoryRequest;
+import com.devcaiqueoliveira.mercatopdvsystem.dto.CategoryResponse;
 import com.devcaiqueoliveira.mercatopdvsystem.mapper.CategoryMapper;
 import com.devcaiqueoliveira.mercatopdvsystem.entity.Category;
 import com.devcaiqueoliveira.mercatopdvsystem.service.CategoryService;
@@ -48,7 +48,8 @@ public class CategoryController {
     public ResponseEntity<CategoryResponse> createCategory(@RequestBody @Valid CategoryRequest request) {
         Category category = categoryMapper.toCategory(request);
         Category savedCategory = categoryService.create(category);
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryMapper.toCategoryResponse(savedCategory));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(categoryMapper.toCategoryResponse(savedCategory));
     }
 
     @Operation(summary = "Remove uma categoria existente.")

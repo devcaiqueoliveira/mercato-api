@@ -1,7 +1,7 @@
 package com.devcaiqueoliveira.mercatopdvsystem.mapper;
 
-import com.devcaiqueoliveira.mercatopdvsystem.controller.dto.CategoryRequest;
-import com.devcaiqueoliveira.mercatopdvsystem.controller.dto.CategoryResponse;
+import com.devcaiqueoliveira.mercatopdvsystem.dto.CategoryRequest;
+import com.devcaiqueoliveira.mercatopdvsystem.dto.CategoryResponse;
 import com.devcaiqueoliveira.mercatopdvsystem.entity.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
