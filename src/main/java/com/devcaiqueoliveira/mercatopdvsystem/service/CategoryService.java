@@ -48,7 +48,7 @@ public class CategoryService {
             throw new EntityNotFoundException("Categoria não encontrada para ser removida");
         }
 
-        if (productRepository.existsByCategory(id)) {
+        if (productRepository.existsByCategoryId(id)) {
             throw new BusinessRuleException("Não é possível excluir a categoria pois existem produtos vinculados a ela.");
         }
 
