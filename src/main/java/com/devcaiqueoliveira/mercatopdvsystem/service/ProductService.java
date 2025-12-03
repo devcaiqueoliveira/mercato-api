@@ -36,11 +36,13 @@ public class ProductService {
 
         validators.forEach(v -> v.validationCreate(product));
 
-        product.setActive(true);
+        if (product.getActive() == null) {
+            product.setActive(true);
+        }
 
-        Long finalId = (categoryId != null) ? categoryId : DEFAULT_CATEGORY_ID;
+        Long finalCategoryId = (categoryId != null) ? categoryId : DEFAULT_CATEGORY_ID;
 
-        Category category = categoryService.findById(finalId);
+        Category category = categoryService.findById(finalCategoryId);
         product.setCategory(category);
 
         return repository.save(product);

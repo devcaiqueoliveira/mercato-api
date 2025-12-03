@@ -63,4 +63,11 @@ public class ProductController {
 
         return ResponseEntity.ok(mapper.toProductResponse(updatedEntity));
     }
+
+    @Operation(summary = "Remove um produto existente do sistema.")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

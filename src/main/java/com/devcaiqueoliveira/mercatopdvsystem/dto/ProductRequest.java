@@ -33,6 +33,8 @@ public record ProductRequest(
 
         String ncmCode,
 
-        Long categoryId
+        Long categoryId,
+
+        Boolean active
 ) {
 }
