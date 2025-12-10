@@ -1,7 +1,8 @@
-package com.devcaiqueoliveira.mercatopdvsystem.service.validator.category;
+package com.devcaiqueoliveira.mercatopdvsystem.service.validator.impl;
 
 import com.devcaiqueoliveira.mercatopdvsystem.exception.EntityNotFoundException;
 import com.devcaiqueoliveira.mercatopdvsystem.repository.CategoryRepository;
+import com.devcaiqueoliveira.mercatopdvsystem.service.validator.CategoryValidatorStrategy;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,14 +1,15 @@
-package com.devcaiqueoliveira.mercatopdvsystem.service.validator.product;
+package com.devcaiqueoliveira.mercatopdvsystem.service.validator.impl;
 
 import com.devcaiqueoliveira.mercatopdvsystem.entity.Product;
 import com.devcaiqueoliveira.mercatopdvsystem.exception.BusinessRuleException;
 import com.devcaiqueoliveira.mercatopdvsystem.repository.ProductRepository;
+import com.devcaiqueoliveira.mercatopdvsystem.service.validator.ProductValidatorStrategy;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class UniqueBarCodeValidator implements ProductValidatorStrategy{
+public class UniqueBarCodeValidator implements ProductValidatorStrategy {
 
     private final ProductRepository repository;
 

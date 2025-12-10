@@ -4,7 +4,7 @@ import com.devcaiqueoliveira.mercatopdvsystem.entity.Category;
 import com.devcaiqueoliveira.mercatopdvsystem.entity.Product;
 import com.devcaiqueoliveira.mercatopdvsystem.exception.EntityNotFoundException;
 import com.devcaiqueoliveira.mercatopdvsystem.repository.ProductRepository;
-import com.devcaiqueoliveira.mercatopdvsystem.service.validator.product.ProductValidatorStrategy;
+import com.devcaiqueoliveira.mercatopdvsystem.service.validator.ProductValidatorStrategy;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,9 +50,9 @@ public class ProductService {
 
     @Transactional
     public Product update(Long id, Product newData, Long categoryId) {
-        Product existingProduct = findById(id);
-
         validators.forEach(v -> v.validationUpdate(newData, id));
+
+        Product existingProduct = findById(id);
 
         existingProduct.updateFrom(newData);
 
@@ -66,9 +66,7 @@ public class ProductService {
 
     @Transactional
     public void deleteById(Long id) {
-        if (!repository.existsById(id)) {
-            throw new EntityNotFoundException("Produto não encontrado no sistema.");
-        }
+        validators.forEach(v -> v.validationDelete(id));
         repository.deleteById(id);
     }
 }
