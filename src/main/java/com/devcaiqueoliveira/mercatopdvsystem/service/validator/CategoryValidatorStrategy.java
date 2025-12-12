@@ -1,6 +1,6 @@
 package com.devcaiqueoliveira.mercatopdvsystem.service.validator;
 
-import com.devcaiqueoliveira.mercatopdvsystem.entity.Category;
+import com.devcaiqueoliveira.mercatopdvsystem.model.Category;
 
 public interface CategoryValidatorStrategy {
     default void validationDelete(Long id) {};

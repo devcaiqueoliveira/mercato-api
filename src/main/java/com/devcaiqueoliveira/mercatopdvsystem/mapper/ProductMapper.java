@@ -2,7 +2,7 @@ package com.devcaiqueoliveira.mercatopdvsystem.mapper;
 
 import com.devcaiqueoliveira.mercatopdvsystem.dto.ProductRequest;
 import com.devcaiqueoliveira.mercatopdvsystem.dto.ProductResponse;
-import com.devcaiqueoliveira.mercatopdvsystem.entity.Product;
+import com.devcaiqueoliveira.mercatopdvsystem.model.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

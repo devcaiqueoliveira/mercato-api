@@ -1,6 +1,6 @@
 package com.devcaiqueoliveira.mercatopdvsystem.service;
 
-import com.devcaiqueoliveira.mercatopdvsystem.entity.Category;
+import com.devcaiqueoliveira.mercatopdvsystem.model.Category;
 import com.devcaiqueoliveira.mercatopdvsystem.exception.EntityNotFoundException;
 import com.devcaiqueoliveira.mercatopdvsystem.repository.CategoryRepository;
 import com.devcaiqueoliveira.mercatopdvsystem.repository.ProductRepository;

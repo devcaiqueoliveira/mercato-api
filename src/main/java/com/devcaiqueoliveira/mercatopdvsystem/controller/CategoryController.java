@@ -3,7 +3,7 @@ package com.devcaiqueoliveira.mercatopdvsystem.controller;
 import com.devcaiqueoliveira.mercatopdvsystem.dto.CategoryRequest;
 import com.devcaiqueoliveira.mercatopdvsystem.dto.CategoryResponse;
 import com.devcaiqueoliveira.mercatopdvsystem.mapper.CategoryMapper;
-import com.devcaiqueoliveira.mercatopdvsystem.entity.Category;
+import com.devcaiqueoliveira.mercatopdvsystem.model.Category;
 import com.devcaiqueoliveira.mercatopdvsystem.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

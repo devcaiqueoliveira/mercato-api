@@ -1,4 +1,4 @@
-package com.devcaiqueoliveira.mercatopdvsystem.entity;
+package com.devcaiqueoliveira.mercatopdvsystem.model;
 
 import jakarta.persistence.*;
 import lombok.*;
