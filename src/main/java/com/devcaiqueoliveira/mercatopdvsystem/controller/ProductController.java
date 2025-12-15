@@ -2,18 +2,17 @@ package com.devcaiqueoliveira.mercatopdvsystem.controller;
 
 import com.devcaiqueoliveira.mercatopdvsystem.dto.ProductRequest;
 import com.devcaiqueoliveira.mercatopdvsystem.dto.ProductResponse;
-import com.devcaiqueoliveira.mercatopdvsystem.model.Product;
 import com.devcaiqueoliveira.mercatopdvsystem.mapper.ProductMapper;
+import com.devcaiqueoliveira.mercatopdvsystem.model.Product;
 import com.devcaiqueoliveira.mercatopdvsystem.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
@@ -26,12 +25,12 @@ public class ProductController {
 
     @Operation(summary = "Listar todos os produtos cadastrados no sistema.")
     @GetMapping
-    public ResponseEntity<List<ProductResponse>> listAllProducts() {
-        List<Product> products = service.listAll();
+    public ResponseEntity<Page<ProductResponse>> listAllProducts(@RequestParam int page,
+                                                                 @RequestParam int size) {
+        Page<Product> products = service.listAll(page, size);
 
-        List<ProductResponse> responses = products.stream()
-                .map(mapper::toProductResponse)
-                .toList();
+        Page<ProductResponse> responses = products
+                .map(mapper::toProductResponse);
 
         return ResponseEntity.ok(responses);
     }
