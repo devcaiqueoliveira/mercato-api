@@ -23,7 +23,7 @@ public class ProductController {
     private final ProductService service;
     private final ProductMapper mapper;
 
-    @Operation(summary = "Listar todos os produtos cadastrados no sistema.")
+    @Operation(summary = "Listar produtos cadastrados no sistema por página.")
     @GetMapping
     public ResponseEntity<Page<ProductResponse>> listAllProducts(@RequestParam int page,
                                                                  @RequestParam int size) {
