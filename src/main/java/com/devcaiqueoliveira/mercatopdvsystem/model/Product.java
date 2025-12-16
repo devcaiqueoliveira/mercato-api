@@ -64,11 +64,6 @@ public class Product {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
-
     public void updateFrom(Product newData) {
         this.name = newData.getName();
         this.description = newData.getDescription();
