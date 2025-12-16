@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,8 @@ public class ProductController {
 
     @Operation(summary = "Listar produtos cadastrados no sistema por página.")
     @GetMapping
-    public ResponseEntity<Page<ProductResponse>> listAllProducts(@RequestParam int page,
-                                                                 @RequestParam int size) {
-        Page<Product> products = service.listAll(page, size);
+    public ResponseEntity<Page<ProductResponse>> listProducts(@RequestParam Pageable pageable) {
+        Page<Product> products = service.listPerPage(pageable);
 
         Page<ProductResponse> responses = products
                 .map(mapper::toProductResponse);

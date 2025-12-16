@@ -8,6 +8,7 @@ import com.devcaiqueoliveira.mercatopdvsystem.service.validator.ProductValidator
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,8 +30,8 @@ public class ProductService {
                 .orElseThrow(() -> new EntityNotFoundException("Produto com o ID: " + id + " não encontrado."));
     }
 
-    public Page<Product> listAll(int page, int size) {
-        return repository.findAll(PageRequest.of(page, size));
+    public Page<Product> listPerPage(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Transactional
