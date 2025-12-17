@@ -75,10 +75,8 @@ public class Product {
         this.unitOfMeasure = newData.getUnitOfMeasure();
         this.ncmCode = newData.getNcmCode();
 
-
         if (newData.getActive() != null) {
             this.active = newData.getActive();
         }
     }
-
 }
