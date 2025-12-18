@@ -50,7 +50,7 @@ public class ProductController {
     public ResponseEntity<ProductResponse> createProduct(@RequestBody @Valid ProductRequest request) {
         Product product = mapper.toProduct(request);
 
-        Product savedProduct = service.create(product, request.categoryId());
+        Product savedProduct = service.create(product);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(mapper.toProductResponse(savedProduct));

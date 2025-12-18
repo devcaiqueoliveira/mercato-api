@@ -18,8 +18,6 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class ProductService {
 
-    private static final Long DEFAULT_CATEGORY_ID = 1L;
-
     private final ProductRepository repository;
     private final CategoryService categoryService;
     private final List<ProductValidatorStrategy> validators;
@@ -34,7 +32,7 @@ public class ProductService {
     }
 
     @Transactional
-    public Product create(Product product, Long categoryId) {
+    public Product create(Product product) {
 
         validators.forEach(v -> v.validationCreate(product));
 
@@ -42,9 +40,7 @@ public class ProductService {
             product.setActive(true);
         }
 
-        Long finalCategoryId = (categoryId != null) ? categoryId : DEFAULT_CATEGORY_ID;
-
-        Category category = categoryService.findById(finalCategoryId);
+        Category category = categoryService.findById(product.getCategory().getId());
         product.setCategory(category);
 
         return repository.save(product);
