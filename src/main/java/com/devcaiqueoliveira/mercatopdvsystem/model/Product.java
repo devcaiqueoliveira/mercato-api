@@ -54,7 +54,7 @@ public class Product {
     private Category category;
 
     @Column(nullable = false)
-    private Boolean active = true;
+    private Boolean active;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)

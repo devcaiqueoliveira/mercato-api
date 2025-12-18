@@ -18,7 +18,6 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final List<CategoryValidatorStrategy> categoryValidators;
-    private final ProductRepository productRepository;
 
     public Category findById(Long id) {
         return categoryRepository.findById(id)
