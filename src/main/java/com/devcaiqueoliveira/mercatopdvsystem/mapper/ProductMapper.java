@@ -12,7 +12,7 @@ public interface ProductMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "category", ignore = true)
+    @Mapping(source = "categoryId", target = "category.id")
     Product toProduct(ProductRequest productRequest);
 
     ProductResponse toProductResponse(Product product);

@@ -16,7 +16,7 @@ public class ProductCategoryExistsValidator implements ProductValidatorStrategy 
     @Override
     public void validationCreate(Product product) {
         if (product.getCategory() == null || product.getCategory().getId() == null) {
-            throw new EntityNotFoundException("Categoria com não encontrada.");
+            throw new IllegalArgumentException("A categoria do produto é obrigatória");
         }
 
         Long categoryId = product.getCategory().getId();
