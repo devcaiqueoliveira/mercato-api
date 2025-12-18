@@ -22,7 +22,7 @@ public record ProductRequest(
         @PositiveOrZero
         BigDecimal costPrice,
 
-        @NotNull @Positive(message = "Preço de venda deve ser maior que zero.")
+        @NotNull(message = "O preço de venda é obrigatório.") @Positive(message = "Preço de venda deve ser maior que zero.")
         BigDecimal salePrice,
 
         @NotNull @PositiveOrZero
@@ -33,6 +33,7 @@ public record ProductRequest(
 
         String ncmCode,
 
+        @NotNull(message = "Selecione uma categoria para o produto.")
         Long categoryId,
 
         Boolean active
