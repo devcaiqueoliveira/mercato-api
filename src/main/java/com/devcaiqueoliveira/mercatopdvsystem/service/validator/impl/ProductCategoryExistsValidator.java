@@ -1,7 +1,7 @@
 package com.devcaiqueoliveira.mercatopdvsystem.service.validator.impl;
 
 import com.devcaiqueoliveira.mercatopdvsystem.exception.EntityNotFoundException;
-import com.devcaiqueoliveira.mercatopdvsystem.model.Product;
+import com.devcaiqueoliveira.mercatopdvsystem.entity.Product;
 import com.devcaiqueoliveira.mercatopdvsystem.repository.CategoryRepository;
 import com.devcaiqueoliveira.mercatopdvsystem.service.validator.ProductValidatorStrategy;
 import lombok.AllArgsConstructor;

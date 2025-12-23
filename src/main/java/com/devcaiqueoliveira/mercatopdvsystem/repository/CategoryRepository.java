@@ -1,6 +1,6 @@
 package com.devcaiqueoliveira.mercatopdvsystem.repository;
 
-import com.devcaiqueoliveira.mercatopdvsystem.model.Category;
+import com.devcaiqueoliveira.mercatopdvsystem.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

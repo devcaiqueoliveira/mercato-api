@@ -3,7 +3,7 @@ package com.devcaiqueoliveira.mercatopdvsystem.controller;
 import com.devcaiqueoliveira.mercatopdvsystem.dto.ProductRequest;
 import com.devcaiqueoliveira.mercatopdvsystem.dto.ProductResponse;
 import com.devcaiqueoliveira.mercatopdvsystem.mapper.ProductMapper;
-import com.devcaiqueoliveira.mercatopdvsystem.model.Product;
+import com.devcaiqueoliveira.mercatopdvsystem.entity.Product;
 import com.devcaiqueoliveira.mercatopdvsystem.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

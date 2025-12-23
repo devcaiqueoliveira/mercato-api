@@ -1,6 +1,6 @@
 package com.devcaiqueoliveira.mercatopdvsystem.service.validator.impl;
 
-import com.devcaiqueoliveira.mercatopdvsystem.model.Category;
+import com.devcaiqueoliveira.mercatopdvsystem.entity.Category;
 import com.devcaiqueoliveira.mercatopdvsystem.exception.BusinessRuleException;
 import com.devcaiqueoliveira.mercatopdvsystem.repository.CategoryRepository;
 import com.devcaiqueoliveira.mercatopdvsystem.service.validator.CategoryValidatorStrategy;
