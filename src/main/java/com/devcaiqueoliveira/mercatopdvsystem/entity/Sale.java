@@ -1,5 +1,6 @@
 package com.devcaiqueoliveira.mercatopdvsystem.entity;
 
+import com.devcaiqueoliveira.mercatopdvsystem.enums.SaleStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -28,6 +29,10 @@ public class Sale {
 
     @Column(nullable = false, unique = true, length = 10, updatable = false)
     private String code;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SaleStatus status = SaleStatus.PENDING;
 
     @Column(name = "total_amount", precision = 19, scale = 2)
     private BigDecimal totalAmount = BigDecimal.ZERO;
