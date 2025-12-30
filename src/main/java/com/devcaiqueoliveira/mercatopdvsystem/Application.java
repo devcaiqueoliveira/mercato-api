@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication
-public class MercatoPdvSystemApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(MercatoPdvSystemApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }
