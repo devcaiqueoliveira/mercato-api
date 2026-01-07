@@ -1,0 +1,21 @@
+package com.devcaiqueoliveira.mercato.service.validator.impl;
+
+import com.devcaiqueoliveira.mercato.exception.BusinessRuleException;
+import com.devcaiqueoliveira.mercato.repository.ProductRepository;
+import com.devcaiqueoliveira.mercato.service.validator.CategoryValidatorStrategy;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+@AllArgsConstructor
+public class CategoryLinkedOnProductValidator implements CategoryValidatorStrategy {
+
+    private final ProductRepository productRepository;
+
+    @Override
+    public void validationDelete(Long id) {
+        if (productRepository.existsByCategoryId(id)) {
+            throw new BusinessRuleException("Não é possível excluir a categoria pois existem produtos vinculados a ela.");
+        }
+    }
+}

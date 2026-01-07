@@ -11,8 +11,8 @@
     <groupId>com.devcaiqueoliveira</groupId>
     <artifactId>mercato-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>mercato-pdv-system</name>
-    <description>mercato-pdv-system</description>
+    <name>mercato-api</name>
+    <description>mercato-api</description>
     <url/>
     <licenses>
         <license/>
