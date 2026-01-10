@@ -3,11 +3,10 @@ package com.devcaiqueoliveira.mercato.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Builder
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -19,13 +18,6 @@ public class Category {
     @Column(nullable = false, unique = true)
     private String name;
 
-    private String description;
-
     @Column(nullable = false)
     private Boolean active = true;
-
-    public void updateFrom(Category newData) {
-        this.name = newData.getName();
-        this.description = newData.getDescription();
-    }
 }

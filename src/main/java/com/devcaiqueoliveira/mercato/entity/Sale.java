@@ -55,7 +55,21 @@ public class Sale {
         }
     }
 
-    public void addItem() {
+    public void addItem(Product product, BigDecimal quantity) {
+        SaleItem item = new SaleItem();
+        item.setProduct(product);
+        item.setQuantity(quantity);
+        item.setUnitPrice(product.getSalePrice());
+        item.setSale(this);
+        item.calculateSubTotal();
 
+        this.items.add(item);
+        this.recalculateTotal();
+    }
+
+    public void recalculateTotal() {
+        this.totalAmount = items.stream()
+                .map(SaleItem::getSubtotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

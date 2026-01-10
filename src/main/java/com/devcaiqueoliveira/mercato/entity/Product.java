@@ -46,9 +46,6 @@ public class Product {
     @Column(name = "unit_of_measure", nullable = false, length = 5)
     private String unitOfMeasure;
 
-    @Column(name = "ncm_code", length = 8)
-    private String ncmCode;
-
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -73,7 +70,6 @@ public class Product {
         this.salePrice = newData.getSalePrice();
         this.stockQuantity = newData.getStockQuantity();
         this.unitOfMeasure = newData.getUnitOfMeasure();
-        this.ncmCode = newData.getNcmCode();
 
         if (newData.getActive() != null) {
             this.active = newData.getActive();

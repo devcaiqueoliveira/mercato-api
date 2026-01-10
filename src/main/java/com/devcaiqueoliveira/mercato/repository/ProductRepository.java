@@ -8,13 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
     Page<Product> findAll(Pageable pageable);
-
     boolean existsByBarCode(String barCode);
-
     boolean existsByBarCodeAndIdNot(String barCode, Long id);
-
     boolean existsByCategoryId(Long categoryId);
 
 }

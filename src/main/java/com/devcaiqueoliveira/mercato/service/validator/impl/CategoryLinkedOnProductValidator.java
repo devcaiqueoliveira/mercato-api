@@ -1,5 +1,6 @@
 package com.devcaiqueoliveira.mercato.service.validator.impl;
 
+import com.devcaiqueoliveira.mercato.entity.Category;
 import com.devcaiqueoliveira.mercato.exception.BusinessRuleException;
 import com.devcaiqueoliveira.mercato.repository.ProductRepository;
 import com.devcaiqueoliveira.mercato.service.validator.CategoryValidatorStrategy;
@@ -13,8 +14,8 @@ public class CategoryLinkedOnProductValidator implements CategoryValidatorStrate
     private final ProductRepository productRepository;
 
     @Override
-    public void validationDelete(Long id) {
-        if (productRepository.existsByCategoryId(id)) {
+    public void validate(Category category) {
+        if (productRepository.existsByCategoryId(category.getId())) {
             throw new BusinessRuleException("Não é possível excluir a categoria pois existem produtos vinculados a ela.");
         }
     }
