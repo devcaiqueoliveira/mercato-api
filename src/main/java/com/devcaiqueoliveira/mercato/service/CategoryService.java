@@ -29,7 +29,7 @@ public class CategoryService {
 
     public Category create(Category category) {
 
-        categoryValidators.forEach(v -> v.validationUpsert(category));
+        categoryValidators.forEach(v -> v.validationCreate(category));
 
         if (category.getActive() == null) {
             category.setActive(true);
@@ -44,10 +44,13 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
 
-    public Category update(Long id) {
+    public Category update(Long id, Category newData) {
         Category existingCategory = findById(id);
 
-        categoryValidators.forEach(v -> v.validationUpsert(existingCategory));
+        existingCategory.setName(newData.getName());
+        existingCategory.setActive(newData.getActive());
+
+        categoryValidators.forEach(v -> v.validationUpdate(existingCategory));
 
         return categoryRepository.save(existingCategory);
     }
