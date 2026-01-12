@@ -47,10 +47,11 @@ public class CategoryService {
     public Category update(Long id, Category newData) {
         Category existingCategory = findById(id);
 
+        categoryValidators.forEach(v -> v.validationUpdate(existingCategory));
+
         existingCategory.setName(newData.getName());
         existingCategory.setActive(newData.getActive());
 
-        categoryValidators.forEach(v -> v.validationUpdate(existingCategory));
 
         return categoryRepository.save(existingCategory);
     }
