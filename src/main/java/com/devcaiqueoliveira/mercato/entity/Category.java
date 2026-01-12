@@ -3,7 +3,8 @@ package com.devcaiqueoliveira.mercato.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

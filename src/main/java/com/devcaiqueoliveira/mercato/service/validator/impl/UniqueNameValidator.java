@@ -15,7 +15,7 @@ public class UniqueNameValidator implements CategoryValidatorStrategy {
 
     @Override
     public void validationCreate(Category category) {
-        if (repository.existsById(category.getId())) {
+        if (repository.existsByName(category.getName())) {
             throw new BusinessRuleException("Já existe uma categoria com este nome.");
         }
     }

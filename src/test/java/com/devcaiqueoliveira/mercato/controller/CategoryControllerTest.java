@@ -18,9 +18,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -41,14 +40,32 @@ public class CategoryControllerTest {
 
 
     @Test
+    @DisplayName("Deve retornar 200 ok ao buscar categoria por ID existente")
+    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
+    void shoulReturnOkStatusOnFindById() throws Exception {
+        Long id = 1L;
+
+        Category categoryFound = new Category(id, "Bebidas", true);
+
+        CategoryResponse response = new CategoryResponse(id, "Bebidas", true);
+
+        when(service.findById(id)).thenReturn(categoryFound);
+        when(mapper.toCategoryResponse(categoryFound)).thenReturn(response);
+
+        mockMvc.perform(get("/api/categories/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.name").value("Bebidas"));
+    }
+
+
+    @Test
     @DisplayName("Deve retornar 200 ok e a lista de categorias")
     @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
     void shouldReturnOkStatusOnFindAll() throws Exception {
 
-        Category category = new Category();
-        category.setId(1L);
-        category.setName("Bebidas");
-        category.setActive(true);
+        Category category = new Category(1L, "Bebidas", true);
 
         CategoryResponse response = new CategoryResponse(1L, "Bebidas", true);
 
@@ -57,7 +74,7 @@ public class CategoryControllerTest {
         when(mapper.toCategoryResponse(any(Category.class))).thenReturn(response);
 
         mockMvc.perform(get("/api/categories")
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()").value(1))
                 .andExpect(jsonPath("$[0].name").value("Bebidas"));
@@ -81,14 +98,61 @@ public class CategoryControllerTest {
 
         when(mapper.toCategory(any())).thenReturn(categorySaved);
         when(service.create(any(Category.class))).thenReturn(categorySaved);
-        when(mapper.toCategoryResponse(any())).thenReturn(new CategoryResponse(1L, "Limpeza",  true));
+        when(mapper.toCategoryResponse(any())).thenReturn(new CategoryResponse(1L, "Limpeza", true));
 
         mockMvc.perform(post("/api/categories")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                        .andExpect(status().isCreated())
-                        .andExpect(jsonPath("$.id").value(1L))
-                        .andExpect(jsonPath("$.name").value("Limpeza"));
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value("Limpeza"));
+    }
+
+    @Test
+    @DisplayName("Deve retornar 200 ok ao atualizar categoria com sucesso")
+    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
+    void shouldReturnOkStatusOnUpdate() throws Exception {
+        Long id = 1L;
+
+        CategoryRequest request = new CategoryRequest("Bebidas Atualizada", true);
+
+        Category categoryToUpdate = new Category();
+        categoryToUpdate.setName("Bebidas Atualizada");
+        categoryToUpdate.setActive(true);
+
+        Category categoryUpdated = new Category(id, "Bebidas Atualizada", true);
+
+        when(mapper.toCategory(any(CategoryRequest.class))).thenReturn(categoryToUpdate);
+
+        when(service.update(any(Long.class), any(Category.class))).thenReturn(categoryUpdated);
+
+        when(mapper.toCategoryResponse(categoryUpdated)).thenReturn(
+                new CategoryResponse(id, "Bebidas Atualizada", true)
+        );
+
+
+        mockMvc.perform(put("/api/categories/{id}", id)
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.name").value("Bebidas Atualizada"));
+    }
+
+    @Test
+    @DisplayName("Deve retornar 204 no content ao deletar categoria")
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    void shouldReturnNoContentStatusOnDelete() throws Exception {
+        Long id = 1L;
+
+        doNothing().when(service).deleteById(id);
+
+        mockMvc.perform(delete("/api/categories/{id}", id)
+                .with(csrf()))
+                .andExpect(status().isNoContent());
+
+        verify(service, times(1)).deleteById(id);
     }
 }

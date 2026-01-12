@@ -27,6 +27,7 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
+    @Transactional
     public Category create(Category category) {
 
         categoryValidators.forEach(v -> v.validationCreate(category));
@@ -44,6 +45,7 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
 
+    @Transactional
     public Category update(Long id, Category newData) {
         Category existingCategory = findById(id);
 
@@ -51,7 +53,6 @@ public class CategoryService {
 
         existingCategory.setName(newData.getName());
         existingCategory.setActive(newData.getActive());
-
 
         return categoryRepository.save(existingCategory);
     }
