@@ -33,9 +33,10 @@ public class CategoryServiceTest {
     @Test
     @DisplayName("Deve salvar a categoria e ativar flag 'active' automaticamente se vier nula")
     void shouldCreateCategoryAndSetActiveTrue() {
-        Category category = new Category();
-        category.setName("Bebidas");
-        category.setActive(null);
+        Category category = Category.builder()
+                .name("Bebidas")
+                .active(null)
+                .build();
 
         when(repository.save(any(Category.class))).thenAnswer(i -> i.getArguments()[0]);
 
@@ -50,8 +51,9 @@ public class CategoryServiceTest {
     @DisplayName("Deve buscar por Id com sucesso")
     void shouldFindByIdSuccessfully() {
         Long id = 1L;
-        Category category = new Category();
-        category.setId(id);
+        Category category = Category.builder()
+                .id(id)
+                .build();
 
         when(repository.findById(id)).thenReturn(Optional.of(category));
 
@@ -88,14 +90,16 @@ public class CategoryServiceTest {
     void shouldUpdateCategory() {
         Long id = 1L;
 
-        Category existingCategory = new Category();
-        existingCategory.setId(id);
-        existingCategory.setName("Nome Antigo");
-        existingCategory.setActive(true);
+        Category existingCategory = Category.builder()
+                .id(id)
+                .name("Nome Antigo")
+                .active(true)
+                .build();
 
-        Category newCategoryData = new Category();
-        newCategoryData.setName("Nome Atualizado");
-        newCategoryData.setActive(true);
+        Category newCategoryData = Category.builder()
+                .name("Nome Atualizado")
+                .active(true)
+                .build();
 
         when(repository.findById(id)).thenReturn(Optional.of(existingCategory));
 
