@@ -87,14 +87,16 @@ public class CategoryControllerTest {
 
         CategoryRequest request = new CategoryRequest("Limpeza", true);
 
-        Category categoryMapped = new Category();
-        categoryMapped.setName("Limpeza");
-        categoryMapped.setActive(true);
+        Category categoryMapped = Category.builder()
+                .name("Limpeza")
+                .active(true)
+                .build();
 
-        Category categorySaved = new Category();
-        categorySaved.setId(1L);
-        categorySaved.setName("Limpeza");
-        categorySaved.setActive(true);
+        Category categorySaved = Category.builder()
+                .id(1L)
+                .name("Limpeza")
+                .active(true)
+                .build();
 
         when(mapper.toCategory(any())).thenReturn(categorySaved);
         when(service.create(any(Category.class))).thenReturn(categorySaved);
@@ -117,9 +119,10 @@ public class CategoryControllerTest {
 
         CategoryRequest request = new CategoryRequest("Bebidas Atualizada", true);
 
-        Category categoryToUpdate = new Category();
-        categoryToUpdate.setName("Bebidas Atualizada");
-        categoryToUpdate.setActive(true);
+        Category categoryToUpdate = Category.builder()
+                .name("Bebidas Atualizada")
+                .active(true)
+                .build();
 
         Category categoryUpdated = new Category(id, "Bebidas Atualizada", true);
 
@@ -150,7 +153,7 @@ public class CategoryControllerTest {
         doNothing().when(service).deleteById(id);
 
         mockMvc.perform(delete("/api/categories/{id}", id)
-                .with(csrf()))
+                        .with(csrf()))
                 .andExpect(status().isNoContent());
 
         verify(service, times(1)).deleteById(id);
