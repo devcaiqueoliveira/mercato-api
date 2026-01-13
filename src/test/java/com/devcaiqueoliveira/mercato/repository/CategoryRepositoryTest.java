@@ -22,8 +22,9 @@ public class CategoryRepositoryTest extends IntegrationTest {
     @Test
     @DisplayName("Deve salvar categoria no banco de dados via TestContainer")
     void testSalvarCategoria() {
-        Category category = new Category();
-        category.setName("Test Container");
+        Category category = Category.builder()
+                .name("Bebidas")
+                .build();
 
         Category saved = repository.save(category);
 
@@ -90,9 +91,10 @@ public class CategoryRepositoryTest extends IntegrationTest {
     }
 
     private Category createAndSaveCategory(String name) {
-        Category category = new Category();
-        category.setName(name);
-        category.setActive(true);
+        Category category = Category.builder()
+                .name(name)
+                .active(true)
+                .build();
         return repository.save(category);
     }
 }
