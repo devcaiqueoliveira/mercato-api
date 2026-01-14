@@ -136,6 +136,19 @@ public class ProductServiceTest {
         verify(productRepository).save(existingProduct);
     }
 
+    @Test
+    @DisplayName("Deve deletar produto chamando validações")
+    void shouldDeleProductSuccessfully() {
+        validators.add(validatorMock);
+        Long id = 1L;
+
+        productService.deleteById(id);
+
+        verify(validatorMock).validationDelete(id);
+        verify(productRepository).deleteById(id);
+
+    }
+
     private Product buildProduct() {
         Category category = Category.builder()
                 .id(1L)
