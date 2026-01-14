@@ -1,14 +1,18 @@
 package com.devcaiqueoliveira.mercato.dto;
 
+import lombok.Builder;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Builder
 public record ProductResponse(
         Long id,
         String name,
         String description,
         String barCode,
         String sku,
+        BigDecimal costPrice,
         BigDecimal salePrice,
         BigDecimal stockQuantity,
         String unitOfMeasure,
