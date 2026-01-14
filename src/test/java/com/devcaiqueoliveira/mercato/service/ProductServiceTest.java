@@ -91,6 +91,22 @@ public class ProductServiceTest {
                 .hasMessageContaining("Produto com o ID: 99 não encontrado");
     }
 
+    @Test
+    @DisplayName("Deve listar produtos paginados")
+    void shouldListProductsPaged() {
+        Page<Product> page = new PageImpl<>(List.of(buildProduct()));
+        when(productRepository.findAll(any(Pageable.class))).thenReturn(page);
+
+        Page<Product> result = productService.listPerPage(Pageable.unpaged());
+
+        assertThat(result.getContent())
+                .isNotEmpty()
+                .hasSize(1)
+                .first()
+                .extracting(Product::getName)
+                .isEqualTo("Produto Teste");
+    }
+
     private Product buildProduct() {
         Category category = Category.builder()
                 .id(1L)
