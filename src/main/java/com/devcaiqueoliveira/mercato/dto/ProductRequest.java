@@ -33,8 +33,6 @@ public record ProductRequest(
         @NotNull
         String unitOfMeasure,
 
-        String ncmCode,
-
         @NotNull(message = "Selecione uma categoria para o produto.")
         Long categoryId,
 
