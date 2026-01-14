@@ -70,6 +70,27 @@ public class ProductServiceTest {
         verify(productRepository, times(1)).save(inputProduct);
     }
 
+    @Test
+    @DisplayName("Deve buscar produto por ID")
+    void shouldFindProductById() {
+        Product product = buildProduct();
+        when(productRepository.findById(1L)).thenReturn(Optional.of(product));
+
+        Product found = productService.findById(1L);
+
+        assertThat(found).usingRecursiveComparison().isEqualTo(product);
+    }
+
+    @Test
+    @DisplayName("Deve lançar exceção ao buscar Id inexistente")
+    void shouldThrowExceptionWhenIdNotFound() {
+        when(productRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> productService.findById(99L))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("Produto com o ID: 99 não encontrado");
+    }
+
     private Product buildProduct() {
         Category category = Category.builder()
                 .id(1L)
