@@ -107,6 +107,35 @@ public class ProductServiceTest {
                 .isEqualTo("Produto Teste");
     }
 
+    @Test
+    @DisplayName("Deve atualizar produto existente")
+    void shouldUpdateExistingProduct() {
+        validators.add(validatorMock);
+        Long id = 1L;
+        Long newCategoryId = 2L;
+
+        Product existingProduct = buildProduct();
+
+        Product newData = buildProduct();
+        newData.setName("Nome Atualizado");
+        newData.setSalePrice(new BigDecimal("99.90"));
+
+        Category newCategory = Category.builder().id(newCategoryId).name("Nova Categoria").build();
+
+        when(productRepository.findById(id)).thenReturn(Optional.of(existingProduct));
+        when(categoryService.findById(newCategoryId)).thenReturn(newCategory);
+        when(productRepository.save(any(Product.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        Product updated = productService.update(id, newData, newCategoryId);
+
+        assertThat(updated.getName()).isEqualTo("Nome Atualizado");
+        assertThat(updated.getSalePrice()).isEqualTo(new BigDecimal("99.90"));
+        assertThat(updated.getCategory().getId()).isEqualTo(newCategoryId);
+
+        verify(validatorMock).validationUpdate(newData, id);
+        verify(productRepository).save(existingProduct);
+    }
+
     private Product buildProduct() {
         Category category = Category.builder()
                 .id(1L)
