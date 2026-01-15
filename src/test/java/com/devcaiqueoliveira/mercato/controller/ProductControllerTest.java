@@ -119,6 +119,25 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.name").value("Produto Teste"));
     }
 
+    @Test
+    @DisplayName("Deve listar produtos de forma paginada e retornar 200 ok")
+    void shouldListPagedAndReturnOk() throws Exception{
+        Product product = Product.builder().id(1L).build();
+
+        PageImpl<Product> page = new PageImpl<>(List.of(product));
+        ProductResponse response = buildValidResponse();
+
+        when(productService.listPerPage(any(Pageable.class))).thenReturn(page);
+        when(mapper.toProductResponse(any(Product.class))).thenReturn(response);
+
+        mockMvc.perform(get("/api/products")
+                .param("page", "0")
+                .param("size", "10"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content").isArray())
+                .andExpect(jsonPath("$.content[0].name").value("Produto Teste"));
+    }
+
     private ProductRequest buildValidRequest() {
         return ProductRequest.builder()
                 .name("Produto Teste")
