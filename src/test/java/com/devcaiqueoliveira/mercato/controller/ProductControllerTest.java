@@ -68,6 +68,29 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.salePrice").value(25.00));
     }
 
+    @Test
+    @DisplayName("Deve atualizar dados do produto e retornar 200 ok")
+    void shouldUpdateProductAndReturnStatusOk() throws Exception {
+        Long id = 1L;
+        ProductRequest request = buildValidRequest();
+        ProductResponse response = buildValidResponse();
+        Product product = Product.builder().id(id).build();
+
+        when(mapper.toProduct(any(ProductRequest.class))).thenReturn(product);
+
+        when(productService.update(eq(id), any(Product.class), eq(request.categoryId()))).thenReturn(product);
+
+        when(mapper.toProductResponse(any(Product.class))).thenReturn(response);
+
+        mockMvc.perform(put("/api/products/{id}", id)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.name").value("Produto Teste"));
+    }
+
     private ProductRequest buildValidRequest() {
         return ProductRequest.builder()
                 .name("Produto Teste")
