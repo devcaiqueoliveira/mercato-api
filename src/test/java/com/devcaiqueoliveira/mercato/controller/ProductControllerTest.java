@@ -91,6 +91,19 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.name").value("Produto Teste"));
     }
 
+    @Test
+    @DisplayName("Deve deletar produto e retornar 204 no content")
+    void shouldDeleteProductAndReturnNoContent() throws Exception {
+        Long id = 1L;
+
+        doNothing().when(productService).deleteById(id);
+
+        mockMvc.perform(delete("/api/products/{id}", id)
+                .with(csrf()))
+                .andExpect(status().isNoContent());
+    }
+
+
     private ProductRequest buildValidRequest() {
         return ProductRequest.builder()
                 .name("Produto Teste")
