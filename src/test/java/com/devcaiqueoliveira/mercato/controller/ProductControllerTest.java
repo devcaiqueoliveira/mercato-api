@@ -103,6 +103,21 @@ public class ProductControllerTest {
                 .andExpect(status().isNoContent());
     }
 
+    @Test
+    @DisplayName("Deve buscar por ID e retornar 200 ok")
+    void shouldFindByIdAndReturnOk() throws Exception {
+        Long id = 1L;
+        Product product = Product.builder().id(id).build();
+        ProductResponse response = buildValidResponse();
+
+        when(productService.findById(id)).thenReturn(product);
+        when(mapper.toProductResponse(product)).thenReturn(response);
+
+        mockMvc.perform(get("/api/products/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.name").value("Produto Teste"));
+    }
 
     private ProductRequest buildValidRequest() {
         return ProductRequest.builder()
