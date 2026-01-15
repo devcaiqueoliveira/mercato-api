@@ -66,6 +66,12 @@ public class Sale {
         this.recalculateTotal();
     }
 
+    public void removeItem(SaleItem item) {
+        this.items.remove(item);
+        item.setSale(null);
+        this.recalculateTotal();
+    }
+
     public void recalculateTotal() {
         this.totalAmount = items.stream()
                 .map(SaleItem::getSubtotal)
