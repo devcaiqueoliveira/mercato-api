@@ -25,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @WebMvcTest(CategoryController.class)
+@WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
 public class CategoryControllerTest {
 
     @Autowired
@@ -41,7 +42,6 @@ public class CategoryControllerTest {
 
     @Test
     @DisplayName("Deve retornar 200 ok ao buscar categoria por ID existente")
-    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
     void shoulReturnOkStatusOnFindById() throws Exception {
         Long id = 1L;
 
@@ -62,7 +62,6 @@ public class CategoryControllerTest {
 
     @Test
     @DisplayName("Deve retornar 200 ok e a lista de categorias")
-    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
     void shouldReturnOkStatusOnFindAll() throws Exception {
 
         Category category = new Category(1L, "Bebidas", true);
@@ -82,7 +81,6 @@ public class CategoryControllerTest {
 
     @Test
     @DisplayName("Deve retornar 201 Created ao criar categoria com sucesso")
-    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
     void shouldReturnCreatedStatusOnCreate() throws Exception {
 
         CategoryRequest request = new CategoryRequest("Limpeza", true);
@@ -113,7 +111,6 @@ public class CategoryControllerTest {
 
     @Test
     @DisplayName("Deve retornar 200 ok ao atualizar categoria com sucesso")
-    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
     void shouldReturnOkStatusOnUpdate() throws Exception {
         Long id = 1L;
 
@@ -146,7 +143,6 @@ public class CategoryControllerTest {
 
     @Test
     @DisplayName("Deve retornar 204 no content ao deletar categoria")
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void shouldReturnNoContentStatusOnDelete() throws Exception {
         Long id = 1L;
 
