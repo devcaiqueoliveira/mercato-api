@@ -129,11 +129,9 @@ public class ProductRepositoryTest extends IntegrationTest {
                 .barCode(barCode)
                 .category(category)
                 .salePrice(BigDecimal.TEN)
-                .costPrice(BigDecimal.ONE)
                 .stockQuantity(BigDecimal.valueOf(100))
                 .unitOfMeasure("UN")
                 .active(true)
-                .description("Descrição teste")
                 .build();
     }
 

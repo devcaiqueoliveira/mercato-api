@@ -1,6 +1,7 @@
 package com.devcaiqueoliveira.mercato.entity;
 
 import com.devcaiqueoliveira.mercato.enums.SaleStatus;
+import com.devcaiqueoliveira.mercato.exception.BusinessRuleException;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -78,5 +79,22 @@ public class Sale {
         this.totalAmount = items.stream()
                 .map(SaleItem::getSubtotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public void finalizeSale() {
+        if (this.status != SaleStatus.PENDING) {
+            throw new BusinessRuleException("Apenas vendas pendentes podem ser finalizadas.");
+        }
+        if (this.items.isEmpty()) {
+            throw new BusinessRuleException("Não é possível finalizar uma venda sem itens.");
+        }
+        this.status = SaleStatus.COMPLETE;
+    }
+
+    public void cancelSale() {
+        if (this.status == SaleStatus.CANCELED) {
+            throw new BusinessRuleException("A venda já está cancelada.");
+        }
+        this.status = SaleStatus.CANCELED;
     }
 }
