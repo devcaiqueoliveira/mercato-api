@@ -55,11 +55,13 @@ public class Sale {
     }
 
     public void addItem(Product product, BigDecimal quantity) {
-        SaleItem item = new SaleItem();
-        item.setProduct(product);
-        item.setQuantity(quantity);
-        item.setUnitPrice(product.getSalePrice());
-        item.setSale(this);
+        SaleItem item = SaleItem.builder()
+                .product(product)
+                .quantity(quantity)
+                .unitPrice(product.getSalePrice())
+                .sale(this)
+                .build();
+
         item.calculateSubTotal();
 
         this.items.add(item);
