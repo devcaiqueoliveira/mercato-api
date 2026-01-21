@@ -25,16 +25,10 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
-
     @Column(name = "bar_code", unique = true, length = 20)
     private String barCode;
 
     private String sku;
-
-    @Column(name = "cost_price", precision = 19, scale = 2)
-    private BigDecimal costPrice;
 
     @Column(name = "sale_price", nullable = false, precision = 19, scale = 2)
     private BigDecimal salePrice;
@@ -62,10 +56,8 @@ public class Product {
 
     public void updateFrom(Product newData) {
         this.name = newData.getName();
-        this.description = newData.getDescription();
         this.barCode = newData.getBarCode();
         this.sku = newData.getSku();
-        this.costPrice = newData.getCostPrice();
         this.salePrice = newData.getSalePrice();
         this.stockQuantity = newData.getStockQuantity();
         this.unitOfMeasure = newData.getUnitOfMeasure();

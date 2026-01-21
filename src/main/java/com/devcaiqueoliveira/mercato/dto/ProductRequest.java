@@ -14,15 +14,10 @@ public record ProductRequest(
         @NotBlank(message = "É obrigatório inserir um nome no produto")
         String name,
 
-        String description,
-
         @NotBlank(message = "O código de barras é obrigatório")
         String barCode,
 
         String sku,
-
-        @PositiveOrZero
-        BigDecimal costPrice,
 
         @NotNull(message = "O preço de venda é obrigatório.") @Positive(message = "Preço de venda deve ser maior que zero.")
         BigDecimal salePrice,
