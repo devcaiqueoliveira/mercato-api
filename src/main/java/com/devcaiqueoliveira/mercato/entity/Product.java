@@ -1,5 +1,6 @@
 package com.devcaiqueoliveira.mercato.entity;
 
+import com.devcaiqueoliveira.mercato.exception.BusinessRuleException;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -53,6 +54,20 @@ public class Product {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public void decreaseStock(BigDecimal quantityToDecrease) {
+        if (quantityToDecrease == null || quantityToDecrease.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("A quantidade para baixa deve ser positiva.");
+        }
+        if (this.stockQuantity.compareTo(quantityToDecrease) < 0) {
+            throw new BusinessRuleException(
+                    "Estoque insuficiente para o produto: " + this.name +
+                    ". Disponível: " + this.stockQuantity
+            );
+        }
+
+        this.stockQuantity = this.stockQuantity.subtract(quantityToDecrease);
+    }
 
     public void updateFrom(Product newData) {
         this.name = newData.getName();
