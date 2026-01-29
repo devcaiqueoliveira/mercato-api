@@ -2,7 +2,9 @@ package com.devcaiqueoliveira.mercato.dto;
 
 import com.devcaiqueoliveira.mercato.entity.SaleItem;
 import com.devcaiqueoliveira.mercato.enums.SaleStatus;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 
 import java.math.BigDecimal;
@@ -13,21 +15,9 @@ import java.util.List;
 @Builder(toBuilder = true)
 public record SaleRequest(
 
-        @NotBlank(message = "O código do produto é obrigatório")
-        String code,
-
-        @NotBlank(message = "O Status da compra é obrigatório")
-        SaleStatus status,
-
-        BigDecimal totalAmount,
-
-        List<SaleItem> items,
-
-        LocalDateTime createdAt,
-
-        LocalDateTime updatedAt
-
-
+        @NotEmpty(message = "Não a itens para concluir a operção.")
+        @Valid
+        List<SaleItem> items
 
         ) {
 
