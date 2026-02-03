@@ -8,6 +8,7 @@ import com.devcaiqueoliveira.mercato.repository.ProductRepository;
 import com.devcaiqueoliveira.mercato.repository.SaleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class SaleService {
     private final SaleRepository saleRepository;
     private final ProductRepository productRepository;
 
+    @Transactional
     public Sale create(Sale saleInput) {
 
         List<SaleItem> rawItems = new ArrayList<>(saleInput.getItems());
