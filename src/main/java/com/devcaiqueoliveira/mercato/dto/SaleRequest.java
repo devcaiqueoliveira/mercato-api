@@ -17,7 +17,7 @@ public record SaleRequest(
 
         @NotEmpty(message = "Não a itens para concluir a operção.")
         @Valid
-        List<SaleItem> items
+        List<SaleItemRequest> items
 
         ) {
 

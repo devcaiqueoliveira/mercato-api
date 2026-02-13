@@ -13,7 +13,6 @@ public record ProductResponse(
         String sku,
         BigDecimal salePrice,
         BigDecimal stockQuantity,
-        String unitOfMeasure,
         Boolean active,
         CategoryResponse category,
         LocalDateTime createdAt,

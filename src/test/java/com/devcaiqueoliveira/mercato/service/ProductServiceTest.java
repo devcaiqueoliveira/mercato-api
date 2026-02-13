@@ -163,7 +163,6 @@ public class ProductServiceTest {
                 .sku("SKU-TEST-001")
                 .salePrice(new BigDecimal("20.00"))
                 .stockQuantity(new BigDecimal("100.000"))
-                .unitOfMeasure("UN")
                 .active(true)
                 .category(category)
                 .createdAt(null)

@@ -145,7 +145,6 @@ public class ProductControllerTest {
                 .sku("SKU-123")
                 .salePrice(new BigDecimal("25.00"))
                 .stockQuantity(new BigDecimal("100.000"))
-                .unitOfMeasure("UN")
                 .categoryId(1L)
                 .active(true)
                 .build();
@@ -161,7 +160,6 @@ public class ProductControllerTest {
                 .sku("SKU-123")
                 .salePrice(new BigDecimal("25.00"))
                 .stockQuantity(new BigDecimal("100.000"))
-                .unitOfMeasure("UN")
                 .active(true)
                 .category(catResponse)
                 .createdAt(LocalDateTime.now())

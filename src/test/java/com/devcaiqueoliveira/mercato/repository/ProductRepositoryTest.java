@@ -130,7 +130,6 @@ public class ProductRepositoryTest extends IntegrationTest {
                 .category(category)
                 .salePrice(BigDecimal.TEN)
                 .stockQuantity(BigDecimal.valueOf(100))
-                .unitOfMeasure("UN")
                 .active(true)
                 .build();
     }

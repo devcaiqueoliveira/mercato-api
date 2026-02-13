@@ -3,6 +3,7 @@ package com.devcaiqueoliveira.mercato.service;
 import com.devcaiqueoliveira.mercato.entity.Product;
 import com.devcaiqueoliveira.mercato.entity.Sale;
 import com.devcaiqueoliveira.mercato.entity.SaleItem;
+import com.devcaiqueoliveira.mercato.enums.SaleStatus;
 import com.devcaiqueoliveira.mercato.exception.EntityNotFoundException;
 import com.devcaiqueoliveira.mercato.repository.ProductRepository;
 import com.devcaiqueoliveira.mercato.repository.SaleRepository;
@@ -22,6 +23,7 @@ public class SaleService {
 
     @Transactional
     public Sale create(Sale saleInput) {
+        saleInput.setStatus(SaleStatus.PENDING);
 
         List<SaleItem> rawItems = new ArrayList<>(saleInput.getItems());
         saleInput.getItems().clear();

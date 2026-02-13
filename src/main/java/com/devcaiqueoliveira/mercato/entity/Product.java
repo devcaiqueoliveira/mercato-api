@@ -1,6 +1,7 @@
 package com.devcaiqueoliveira.mercato.entity;
 
 import com.devcaiqueoliveira.mercato.exception.BusinessRuleException;
+import com.devcaiqueoliveira.mercato.exception.InsufficientStockException;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -37,9 +38,6 @@ public class Product {
     @Column(name = "stock_quantity", nullable = false, precision = 19, scale = 3)
     private BigDecimal stockQuantity;
 
-    @Column(name = "unit_of_measure", nullable = false, length = 5)
-    private String unitOfMeasure;
-
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -60,10 +58,7 @@ public class Product {
             throw new IllegalArgumentException("A quantidade para baixa deve ser positiva.");
         }
         if (this.stockQuantity.compareTo(quantityToDecrease) < 0) {
-            throw new BusinessRuleException(
-                    "Estoque insuficiente para o produto: " + this.name +
-                    ". Disponível: " + this.stockQuantity
-            );
+            throw new InsufficientStockException(this.name);
         }
 
         this.stockQuantity = this.stockQuantity.subtract(quantityToDecrease);
@@ -75,7 +70,6 @@ public class Product {
         this.sku = newData.getSku();
         this.salePrice = newData.getSalePrice();
         this.stockQuantity = newData.getStockQuantity();
-        this.unitOfMeasure = newData.getUnitOfMeasure();
 
         if (newData.getActive() != null) {
             this.active = newData.getActive();

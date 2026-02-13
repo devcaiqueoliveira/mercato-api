@@ -25,8 +25,6 @@ public record ProductRequest(
         @NotNull @PositiveOrZero
         BigDecimal stockQuantity,
 
-        @NotNull
-        String unitOfMeasure,
 
         @NotNull(message = "Selecione uma categoria para o produto.")
         Long categoryId,
