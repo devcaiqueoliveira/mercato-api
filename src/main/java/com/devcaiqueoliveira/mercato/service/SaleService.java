@@ -45,9 +45,16 @@ public class SaleService {
         return saleRepository.save(saleInput);
     }
 
+    @Transactional(readOnly = true)
     public Sale findById(Long id) {
         return saleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Venda com ID: " + id + " não encontrada."));
+    }
+
+    @Transactional(readOnly = true)
+    public Sale findByCode(String code) {
+        return saleRepository.findByCode(code)
+                .orElseThrow(() -> new EntityNotFoundException("Venda não encontrada com o código: " + code));
     }
 
 }

@@ -36,9 +36,9 @@ public class SaleController {
     }
 
     @Operation(summary = "Buscar venda por ID.")
-    @GetMapping("/{id}")
-    public ResponseEntity<SaleResponse> getSaleById(@PathVariable Long id) {
-        Sale sale = saleService.findById(id);
+    @GetMapping("/{code}")
+    public ResponseEntity<SaleResponse> getSaleById(@PathVariable String code) {
+        Sale sale = saleService.findByCode(code);
         return ResponseEntity.ok(saleMapper.toSaleResponse(sale));
     }
 
