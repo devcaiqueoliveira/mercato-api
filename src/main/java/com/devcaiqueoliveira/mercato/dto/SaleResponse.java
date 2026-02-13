@@ -9,7 +9,6 @@ import java.util.List;
 
 @Builder
 public record SaleResponse(
-        Long id,
         String code,
         SaleStatus status,
         BigDecimal totalAmount,
